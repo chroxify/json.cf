@@ -5,6 +5,7 @@
       "name": "json.cf",
       "devDependencies": {
         "@biomejs/biome": "1.9.4",
+        "@types/k6": "^1.0.2",
         "turbo": "^2.5.3",
         "typescript": "5.8.2",
       },
@@ -174,6 +175,8 @@
     "@scalar/openapi-types": ["@scalar/openapi-types@0.1.9", "", {}, "sha512-HQQudOSQBU7ewzfnBW9LhDmBE2XOJgSfwrh5PlUB7zJup/kaRkBGNgV2wMjNz9Af/uztiU/xNrO179FysmUT+g=="],
 
     "@scalar/types": ["@scalar/types@0.0.40", "", { "dependencies": { "@scalar/openapi-types": "0.1.9", "@unhead/schema": "^1.11.11", "zod": "^3.23.8" } }, "sha512-0J6o+yZzgZEvl3KhvLTAGiXXyrCeEPKvs9gUWQDf1Rb5NfFxF0lA10ougCQCwVJIguWNEzZfOUiSoAFzGy2EqQ=="],
+
+    "@types/k6": ["@types/k6@1.0.2", "", {}, "sha512-bpja1c7OXIJk06aPGN+Aw5f3QhP0PjvgX2Fwfa3rJUaUI+O1ZE3491g9hMjhH21ZlTaAhz7h6veyxaz/RqPUTg=="],
 
     "@unhead/schema": ["@unhead/schema@1.11.20", "", { "dependencies": { "hookable": "^5.5.3", "zhead": "^2.2.4" } }, "sha512-0zWykKAaJdm+/Y7yi/Yds20PrUK7XabLe9c3IRcjnwYmSWY6z0Cr19VIs3ozCj8P+GhR+/TI2mwtGlueCEYouA=="],
 
