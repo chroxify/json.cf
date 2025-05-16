@@ -25,13 +25,13 @@
       "id": "a043927aedae46dabcf1ac1f4e604875",
     },
   ],
-  "secrets_store_secrets": [
-    {
-      "binding": "SQIDS_ALPHABET",
-      "store_id": "91f669d0f99146c4b32700c4dfa4160f",
-      "secret_name": "SQIDS_ALPHABET",
-    },
-  ],
+  // "secrets_store_secrets": [
+  //   {
+  //     "binding": "SQIDS_ALPHABET",
+  //     "store_id": "xyz",
+  //     "secret_name": "SQIDS_ALPHABET",
+  //   },
+  // ],
   // "r2_buckets": [
   //   {
   //     "binding": "MY_BUCKET",
