@@ -8,7 +8,7 @@
     "format": "biome check .",
     "format:fix": "biome check . --write",
     "check-types": "turbo run check-types",
-    "test:k6": "k6 run --summary-trend-stats=\"avg,min,max,p(90),p(95),p(99)\" scripts/k6.ts"
+    "test:k6": "k6 run scripts/k6.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
