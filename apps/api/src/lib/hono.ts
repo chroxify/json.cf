@@ -3,7 +3,8 @@ import { apiReference } from "@scalar/hono-api-reference";
 import { Response } from "./response";
 import { ApiError, NotFoundError, InternalServerError } from "./errors";
 import type { StatusCode } from "hono/utils/http-status";
-import { Context } from "hono";
+import type { Context } from "hono";
+import { prettyJSON } from "hono/pretty-json";
 
 type Bindings = {
   SQIDS_ALPHABET: string;
@@ -80,6 +81,8 @@ export function App() {
       },
     })
   );
+
+  app.use("*", prettyJSON());
 
   return app;
 }

@@ -1,5 +1,5 @@
 import Sqids from "sqids";
-import { TContext } from "./hono";
+import type { TContext } from "./hono";
 
 export const s = (c: TContext) =>
   new Sqids({
