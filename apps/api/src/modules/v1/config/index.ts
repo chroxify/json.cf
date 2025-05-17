@@ -3,6 +3,8 @@ import { createRoute, z } from "@hono/zod-openapi";
 import { Response } from "@/lib/response";
 import { errorResponses } from "@/utils/errorResponses";
 import { s } from "@/lib/sqids";
+import { BadRequestError } from "@/lib/errors";
+import { jsonSchema } from "@/utils/zodTypes";
 
 const route = createRoute({
   method: "post",
@@ -12,7 +14,7 @@ const route = createRoute({
       required: true,
       content: {
         "application/json": {
-          schema: z.any(),
+          schema: jsonSchema,
         },
       },
     },
@@ -20,7 +22,13 @@ const route = createRoute({
   responses: {
     200: Response.schema(
       z.object({
-        status: z.string(),
+        id: z.string(),
+        secret: z.string(),
+        config: jsonSchema,
+        metadata: z.object({
+          updatedAt: z.string(),
+          createdAt: z.string(),
+        }),
       }),
       {
         description: "Create a new config.",
@@ -32,12 +40,19 @@ const route = createRoute({
 
 export const registerConfig = (app: TApp) => {
   app.openapi(route, async (c) => {
+    // Validate body
+    const body = await c.req.valid("json");
+    if (Object.keys(body).length === 0) {
+      throw new BadRequestError({
+        message: "Body can not be empty.",
+      });
+    }
+
     // Get count & build config id
     const count = await c.env.KV.get("count");
     const configId = s(c).encode([Number(count) + 1]);
 
-    // Get body & create secret
-    const body = await c.req.valid("json");
+    // Set secret & metadata
     const secret = crypto.randomUUID();
     const metadata = {
       updatedAt: new Date().toISOString(),
@@ -59,11 +74,10 @@ export const registerConfig = (app: TApp) => {
       data: {
         id: configId,
         secret,
-        config: {
-          ...body,
-        },
+        config: body,
         metadata,
       },
+      ignoreTransform: true,
     }).send(c);
   });
 };

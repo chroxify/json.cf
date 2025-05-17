@@ -118,7 +118,7 @@ class AppErrorBuilder {
 type SuccessParams<T> = {
   data: T;
   pagination?: PaginationType;
-  ignoreTransform?: string[];
+  ignoreTransform?: string[] | boolean;
   forceTransform?: string[];
 };
 
@@ -135,9 +135,12 @@ type ErrorParams = {
 function transformIds<T>(
   c: TContext,
   data: T,
-  ignoreKeys: string[] = [],
+  ignoreKeys: string[] | boolean = [],
   forceTransform: string[] = []
 ): T {
+  // If ignoreKeys is true, return data without transformation
+  if (ignoreKeys === true) return data;
+
   if (!data || typeof data !== "object") return data;
 
   if (Array.isArray(data)) {
@@ -152,8 +155,8 @@ function transformIds<T>(
 
   const transformed = { ...data };
   for (const key in transformed) {
-    // Skip if key is in ignoreKeys
-    if (ignoreKeys.includes(key)) continue;
+    // Skip if key is in ignoreKeys array
+    if (Array.isArray(ignoreKeys) && ignoreKeys.includes(key)) continue;
 
     // Transform if key is in forceTransform or contains 'id' and value is number
     if (
@@ -181,13 +184,13 @@ class SuccessResponseBuilder<T> {
   private _data: T;
   private _status: StatusCode = 200;
   private _pagination?: PaginationType;
-  private _ignoreTransform: string[];
+  private _ignoreTransform: string[] | boolean;
   private _forceTransform: string[];
 
   constructor(params: SuccessParams<T>) {
     this._data = params.data;
     this._pagination = params.pagination;
-    this._ignoreTransform = params.ignoreTransform ?? [];
+    this._ignoreTransform = params.ignoreTransform ?? false;
     this._forceTransform = params.forceTransform ?? [];
   }
 
