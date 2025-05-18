@@ -4,7 +4,10 @@
   "version": "1.0.0",
   "author": "Christo Todorov <chroxify@gmail.com>",
   "license": "MIT",
-  "repository": "https://github.com/chroxify/json.cf",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chroxify/json.cf.git"
+  },
   "keywords": [
     "json",
     "config",
