@@ -31,9 +31,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir dist --target node --minify --sourcemap && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format cjs && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format esm && bun run build:types",
+    "build": "bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --external react && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format cjs --external react && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format esm --external react && bun run build:types",
     "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
-    "dev": "bun build ./src/index.ts --outdir dist --target node --watch",
+    "dev": "bun build ./src/index.ts --outdir dist --target node --watch --external react",
     "clean": "rm -rf dist"
   },
   "sideEffects": false,

@@ -1,6 +1,10 @@
 import { atom, type Store } from "nanostores";
-import { useCallback, useRef, useSyncExternalStore } from "react";
-import type { DependencyList } from "react";
+import {
+  useCallback,
+  useRef,
+  useSyncExternalStore,
+  type DependencyList,
+} from "react";
 import type { ConfigResponse, ConfigsResponse, ConfigValue } from "../../types";
 
 type InitialConfigResponse = ConfigResponse<ConfigValue | undefined>;
