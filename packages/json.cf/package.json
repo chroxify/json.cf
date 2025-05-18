@@ -1,7 +1,7 @@
 {
   "name": "json.cf",
-  "description": "A dead simple, latency-optimized json config at the edge.",
-  "version": "0.0.1",
+  "description": "A dead simple, latency-optimized JSON config at the edge.",
+  "version": "1.0.0",
   "author": "Christo Todorov <chroxify@gmail.com>",
   "license": "MIT",
   "repository": "https://github.com/chroxify/json.cf",
