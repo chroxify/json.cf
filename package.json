@@ -1,5 +1,5 @@
 {
-  "name": "json.cf",
+  "name": "@json.cf/root",
   "private": true,
   "scripts": {
     "build": "turbo run build",

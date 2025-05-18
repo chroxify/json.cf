@@ -5,6 +5,7 @@ import { ApiError, NotFoundError, InternalServerError } from "./errors";
 import type { StatusCode } from "hono/utils/http-status";
 import type { Context } from "hono";
 import { prettyJSON } from "hono/pretty-json";
+import { cors } from "hono/cors";
 
 type Bindings = {
   SQIDS_ALPHABET: string;
@@ -81,6 +82,8 @@ export function App() {
       },
     })
   );
+
+  app.use("/v1/*", cors());
 
   app.use("*", prettyJSON());
 

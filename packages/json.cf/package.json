@@ -1,0 +1,50 @@
+{
+  "name": "json.cf",
+  "description": "A dead simple, latency-optimized json config at the edge.",
+  "version": "0.0.1",
+  "author": "Christo Todorov <chroxify@gmail.com>",
+  "license": "MIT",
+  "repository": "https://github.com/chroxify/json.cf",
+  "keywords": [
+    "json",
+    "config",
+    "edge",
+    "edge-config",
+    "edge-config-json",
+    "edge-config-json-library",
+    "remote-config",
+    "remote-config-json",
+    "remote-config-json-library"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir dist --target node --minify --sourcemap && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format cjs && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format esm && bun run build:types",
+    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
+    "dev": "bun build ./src/index.ts --outdir dist --target node --watch",
+    "clean": "rm -rf dist"
+  },
+  "sideEffects": false,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "react": "^19.1.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "nanostores": "^1.0.1"
+  }
+}
