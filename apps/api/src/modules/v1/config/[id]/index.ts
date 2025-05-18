@@ -7,7 +7,7 @@ import { jsonSchema } from "@/utils/zodTypes";
 
 const route = createRoute({
   method: "get",
-  path: "/config/{id}",
+  path: "/config/:id",
   responses: {
     200: Response.schema(jsonSchema, {
       description: "Get a config by id.",
@@ -21,7 +21,9 @@ export const registerConfigId = (app: TApp) => {
     const config = await c.env.KV.get(c.req.param("id"));
 
     if (!config) {
-      throw new NotFoundError();
+      throw new NotFoundError({
+        message: "Config could not be found.",
+      });
     }
 
     return Response.success({
