@@ -25,7 +25,7 @@ export function createReactConfig(options: JsonConfigOptions) {
 
   return {
     get: (key: string) => config.get(key),
-    getAll: () => config.getAll(),
+    getConfig: () => config.getConfig(),
     useKey: (key: string): ConfigResponse<ConfigValue | undefined> => {
       const state = useStore(store, { keys: [key] });
       config
@@ -34,10 +34,10 @@ export function createReactConfig(options: JsonConfigOptions) {
         .catch((error: unknown) => store.setKey(key, handleError(error)));
       return state as ConfigResponse<ConfigValue | undefined>;
     },
-    useAll: (): ConfigsResponse<Record<string, ConfigValue> | undefined> => {
+    useConfig: (): ConfigsResponse<Record<string, ConfigValue> | undefined> => {
       const state = useStore(store);
       config
-        .getAll()
+        .getConfig()
         .then((result) => store.set(result))
         .catch((error: unknown) => store.set(handleError(error)));
       return state as ConfigsResponse<Record<string, ConfigValue> | undefined>;

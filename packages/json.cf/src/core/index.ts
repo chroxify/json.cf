@@ -38,7 +38,7 @@ class JsonConfig {
     return (await response.json()) as ApiResponse<ConfigValue>;
   }
 
-  async getAll(): Promise<ConfigsResponse<Record<string, ConfigValue>>> {
+  async getConfig(): Promise<ConfigsResponse<Record<string, ConfigValue>>> {
     const response = await fetch(`${this.baseUrl}/config/${this.id}`, {
       headers: {
         ...(this.secret && { Authorization: `Bearer ${this.secret}` }),
