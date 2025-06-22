@@ -18,6 +18,12 @@ const route = createRoute({
         },
       },
     },
+    query: z.object({
+      private: z
+        .union([z.literal("true"), z.literal("false")])
+        .optional()
+        .default("false"),
+    }),
   },
   responses: {
     200: Response.schema(
@@ -55,6 +61,8 @@ export const registerConfig = (app: TApp) => {
     // Set secret & metadata
     const secret = crypto.randomUUID();
     const metadata = {
+      secret,
+      private: c.req.query("private") === "true",
       updatedAt: new Date().toISOString(),
       createdAt: new Date().toISOString(),
     };
@@ -62,7 +70,6 @@ export const registerConfig = (app: TApp) => {
     // Create config
     await c.env.KV.put(configId, JSON.stringify(body), {
       metadata: {
-        secret,
         ...metadata,
       },
     });

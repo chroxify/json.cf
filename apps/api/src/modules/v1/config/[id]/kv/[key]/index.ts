@@ -22,15 +22,19 @@ const route = createRoute({
 
 export const registerConfigIdKvKey = (app: TApp) => {
   app.openapi(route, async (c) => {
-    const config = await c.env.KV.get(c.req.param("id"));
+    const config = await c.env.KV.getWithMetadata(c.req.param("id"));
 
-    if (!config) {
+    if (
+      !config.value ||
+      ((config.metadata as { private: boolean; secret: string })?.private &&
+        (config.metadata as { private: boolean; secret: string })?.secret !==
+          c.req.header("x-config-secret"))
+    ) {
       throw new NotFoundError({
         message: "Config could not be found.",
       });
     }
-
-    const value = JSON.parse(config);
+    const value = JSON.parse(config.value);
     const keyPath = c.req.param("key").split("/");
 
     let current = value;
