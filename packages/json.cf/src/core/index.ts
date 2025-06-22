@@ -22,7 +22,7 @@ class JsonConfig {
       `${this.baseUrl}/config/${this.id}/kv/${key}`,
       {
         headers: {
-          ...(this.secret && { Authorization: `Bearer ${this.secret}` }),
+          ...(this.secret && { "X-Config-Secret": this.secret }),
         },
       }
     );
@@ -41,7 +41,7 @@ class JsonConfig {
   async getConfig(): Promise<ConfigsResponse<Record<string, ConfigValue>>> {
     const response = await fetch(`${this.baseUrl}/config/${this.id}`, {
       headers: {
-        ...(this.secret && { Authorization: `Bearer ${this.secret}` }),
+        ...(this.secret && { "X-Config-Secret": this.secret }),
       },
     });
 
