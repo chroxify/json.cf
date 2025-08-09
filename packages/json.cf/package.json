@@ -28,13 +28,21 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./react": {
+      "types": "./dist/frameworks/react/index.d.ts",
+      "import": "./dist/frameworks/react/index.js",
+      "require": "./dist/frameworks/react/index.cjs"
+    },
+    "./types": "./dist/types/index.d.ts"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --external react && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format cjs --external react && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format esm --external react && bun run build:types",
+    "build": "bun run build:core && bun run build:react && bun run build:types",
+    "build:core": "bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --external react && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format cjs --external react && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format esm --external react && bun run build:types",
+    "build:react": "bun build ./src/frameworks/react/index.ts --outdir dist/frameworks/react --target node --minify --sourcemap --external react && bun build ./src/frameworks/react/index.ts --outdir dist/frameworks/react --target node --minify --sourcemap --format cjs --external react && bun build ./src/frameworks/react/index.ts --outdir dist/frameworks/react --target node --minify --sourcemap --format esm --external react && bun run build:types",
     "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
     "dev": "bun build ./src/index.ts --outdir dist --target node --watch --external react",
     "clean": "rm -rf dist"

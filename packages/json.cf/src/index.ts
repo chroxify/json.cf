@@ -1,8 +1,22 @@
 import type { JsonConfigOptions } from "./types";
-import { createReactConfig } from "./frameworks/react";
+import { type JsonConfig, createBaseConfig } from "./core";
 
-export * from "./types";
-
-export const jsonConfig = (options: JsonConfigOptions) => {
-  return createReactConfig(options);
+/**
+ * Creates a new JsonConfig instance with nanostores-based state management
+ * @param options Configuration options
+ * @returns JsonConfig instance
+ */
+export const jsonConfig = (options: JsonConfigOptions): JsonConfig => {
+  return createBaseConfig(options);
 };
+
+// Re-export types and core functionality
+export type {
+  JsonConfigOptions,
+  ConfigValue,
+  ConfigResponse,
+  ConfigsResponse,
+  FetchState,
+  ConfigState,
+} from "./types";
+export { JsonConfig } from "./core";

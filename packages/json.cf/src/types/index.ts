@@ -2,6 +2,7 @@ export interface JsonConfigOptions {
   id: string;
   secret?: string;
   baseUrl?: string;
+  cacheTimeout?: number;
 }
 
 export type ConfigValue =
@@ -35,4 +36,17 @@ export interface ConfigsResponse<T> {
   metadata: {
     timestamp: number;
   };
+}
+
+// New store state types
+export interface FetchState<T> {
+  data: T | null;
+  loading: boolean;
+  error: string | null;
+}
+
+export interface ConfigState {
+  data: Record<string, ConfigValue> | undefined;
+  loading: boolean;
+  error: string | null;
 }
