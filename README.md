@@ -1,84 +1,162 @@
-# Turborepo starter
+<h1 align="center">JSON.CF</h1>
 
-This Turborepo starter is maintained by the Turborepo core team.
+<p align="center">
+  <a aria-label="NPM version" href="https://www.npmjs.com/package/json.cf">
+    <img alt="NPM Version" src="https://img.shields.io/npm/v/json.cf?color=%23008000">
+  </a>
+  <a aria-label="Package size" href="https://bundlephobia.com/result?p=json.cf">
+    <img alt="" src="https://badgen.net/bundlephobia/minzip/json.cf">
+  </a>
+  <a aria-label="License" href="https://github.com/chroxify/json.cf/blob/main/LICENSE">
+    <img alt="GitHub License" src="https://img.shields.io/github/license/chroxify/json.cf?color=%23008000">
+  </a>
+</p>
 
-## Using this example
+## Introduction
 
-Run the following command:
+json.cf is a dead simple, latency-optimized JSON config service at the edge. Perfect for feature flags, remote configuration, and dynamic settings that need to be accessible with minimal latency worldwide.
 
-```sh
-npx create-turbo@latest
+## Features
+
+- **Edge Optimized** - Deployed on Cloudflare Workers for sub-50ms global latency
+- **Private Configs** - Secure configurations with secret-based authentication
+- **Framework Agnostic** - Works with any JavaScript framework or vanilla JS
+- **React Integration** - Built-in React hooks with automatic state management
+- **Real-time Updates** - Instantly update configs without deployments
+- **REST API** - Simple HTTP API for any language or platform
+
+## Quick Start
+
+### Package
+
+```ts
+import { jsonConfig } from "json.cf";
+
+// Create a config instance
+const config = jsonConfig({
+  id: "your-config-id",
+  secret: "your-secret", // Optional, for private configs
+});
+
+// Get a specific value
+const featureFlag = await config.get("featureEnabled");
+
+// Get entire config
+const allConfig = await config.getConfig();
 ```
 
-## What's inside?
+### React Integration
 
-This Turborepo includes the following packages/apps:
+```tsx
+import { useJsonConfig } from "json.cf/react";
 
-### Apps and Packages
+function MyComponent() {
+  const { data, loading, error } = useJsonConfig({
+    id: "your-config-id",
+    secret: "your-secret", // Optional
+  });
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+  return <div>Feature enabled: {data?.featureEnabled}</div>;
+}
 ```
 
-### Develop
+### REST API
 
-To develop all apps and packages, run the following command:
+```bash
+# Get entire config
+curl -X GET "https://api.json.cf/v1/config/your-config-id"
 
-```
-cd my-turborepo
-pnpm dev
-```
+# Get config with secret (for private configs)
+curl -X GET "https://api.json.cf/v1/config/your-config-id" \
+  -H "X-Config-Secret: your-secret"
 
-### Remote Caching
+# Create new config
+curl -X POST "https://api.json.cf/v1/config" \
+  -H "Content-Type: application/json" \
+  -d '{"featureEnabled": true, "theme": "dark"}'
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+# Update existing config
+curl -X PUT "https://api.json.cf/v1/config/your-config-id" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer your-secret" \
+  -d '{"featureEnabled": false, "theme": "light"}'
 ```
 
-## Useful Links
+[View API Documentation →](https://json.cf/docs)
 
-Learn more about the power of Turborepo:
+### Web Interface
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+Manage your configs visually at [json.cf](https://json.cf).
+
+## Use Cases
+
+- **Feature Flags** - Toggle features on/off without deployments
+- **A/B Testing** - Dynamic configuration for experiments
+- **Theme Settings** - Remote theme and styling configurations
+- **API Keys** - Securely store and rotate API keys
+- **Environment Variables** - Dynamic environment-specific settings
+- **Content Management** - Update copy, messages, and content remotely
+
+## Installation
+
+```bash
+npm install json.cf
+# or
+yarn add json.cf
+# or
+pnpm add json.cf
+# or
+bun add json.cf
+```
+
+## API Reference
+
+### Core Functions
+
+#### `jsonConfig(options)`
+
+Creates a new config instance.
+
+```ts
+interface ConfigOptions {
+  id: string; // Config ID
+  secret?: string; // Secret for private configs
+  baseUrl?: string; // Custom API base URL
+}
+```
+
+#### `config.get(key)`
+
+Get a specific value from the config.
+
+```ts
+const value = await config.get("myKey");
+```
+
+#### `config.getConfig()`
+
+Get the entire configuration object.
+
+```ts
+const fullConfig = await config.getConfig();
+```
+
+### React Hooks
+
+#### `useJsonConfig(options)`
+
+React hook for accessing config with automatic state management.
+
+```ts
+const { data, loading, error, refetch } = useJsonConfig({
+  id: "config-id",
+  secret: "optional-secret",
+});
+```
+
+## License
+
+MIT License.
