@@ -1,14 +1,14 @@
-<h1 align="center">JSON.CF</h1>
+<h1 align="center">json.cf</h1>
 
 <p align="center">
   <a aria-label="NPM version" href="https://www.npmjs.com/package/json.cf">
-    <img alt="NPM Version" src="https://img.shields.io/npm/v/json.cf?color=%23008000">
+    <img alt="NPM Version" src="https://img.shields.io/npm/v/json.cf?color=%232B8ECB">
   </a>
   <a aria-label="Package size" href="https://bundlephobia.com/result?p=json.cf">
     <img alt="" src="https://badgen.net/bundlephobia/minzip/json.cf">
   </a>
   <a aria-label="License" href="https://github.com/chroxify/json.cf/blob/main/LICENSE">
-    <img alt="GitHub License" src="https://img.shields.io/github/license/chroxify/json.cf?color=%23008000">
+    <img alt="GitHub License" src="https://img.shields.io/github/license/chroxify/json.cf?color=%232B8ECB">
   </a>
 </p>
 
